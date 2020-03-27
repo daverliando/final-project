@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Login from './components/Login'
+import Navbar from './components/Navbar'
+import { connect } from 'react-redux'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    let content = (<Login />)
+
+    if (this.props.isLogin) {
+      content = (<Navbar />)
+    }
+
+    return (
+      <div>
+        {content}
+      </div>
+    )
+  }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isLogin: state.login.isLogin
+})
+
+const mapDispatchToProps = dispatch => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
